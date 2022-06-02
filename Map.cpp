@@ -1,27 +1,4 @@
-#include <stdio.h>
-#include <iostream>
-
-#include "allegro5/allegro.h"
-#include "allegro5/allegro_image.h"
-#include "allegro5/allegro_audio.h"
-#include "allegro5/allegro_acodec.h"
-
-#include "Moeda.cpp"
-#include "Parede.cpp"
-
-using namespace std;
-
-const int TAM_MAPA_L = 653;
-const int TAM_MAPA_A = 720;
-
-class Map : Moeda, Parede{
-    private:
-  
-    public:
-        Map();
-        ~Map();
-        void montarMapa();
-};
+#include "Map.h"
 
 Map::Map(){}
 

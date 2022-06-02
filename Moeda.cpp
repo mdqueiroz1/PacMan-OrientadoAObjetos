@@ -1,31 +1,4 @@
-#include <stdio.h>
-#include <iostream>
-
-#include "allegro5/allegro.h"
-#include "allegro5/allegro_image.h"
-#include "allegro5/allegro_audio.h"
-#include "allegro5/allegro_acodec.h"
-
-using namespace std;
-
-const int TAM_MOEDA_L = 22;
-const int TAM_MOEDA_A = 22;
-
-class Moeda{
-    private:
-        int moeda_borda_x, moeda_borda_y;
-        bool coletado;
-    protected:
-        ALLEGRO_BITMAP *moeda;
-    public:
-        Moeda();
-        ~Moeda();
-        void coletaMoeda();
-        bool getColetado();
-        void setColetado(bool foiColetado);
-        int getMoedaBordaX();
-        int getMoedaBordaY();
-};
+#include "Moeda.h"
 
 Moeda::Moeda(){
     moeda = al_load_bitmap("sprites/moeda.png");
@@ -34,7 +7,9 @@ Moeda::Moeda(){
     moeda_borda_y = 22;
 }
 
-Moeda::~Moeda(){}
+Moeda::~Moeda(){
+    al_destroy_bitmap(moeda);
+}
 
 void Moeda::coletaMoeda(){
     if (!getColetado()){

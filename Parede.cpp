@@ -1,30 +1,4 @@
-#include <stdio.h>
-#include <iostream>
-
-#include "allegro5/allegro.h"
-#include "allegro5/allegro_image.h"
-#include "allegro5/allegro_audio.h"
-#include "allegro5/allegro_acodec.h"
-
-using namespace std;
-
-const int TAM_PAREDE_L = 22;
-const int TAM_PAREDE_A = 22;
-
-class Parede{
-    private:
-        int parede_borda_x, parede_borda_y;
-
-    protected:
-        ALLEGRO_BITMAP *parede;
-        ALLEGRO_BITMAP *vazio;
-    public:
-        Parede();
-        ~Parede();
-        void inicializaParedes();
-        int getParedeBordaX();
-        int getParedeBordaY();
-};
+#include "Parede.h"
 
 void Parede::inicializaParedes(){
     parede = al_load_bitmap("sprites/parede.png");
@@ -39,6 +13,8 @@ Parede::Parede(){
 }
 
 Parede::~Parede(){
+    al_destroy_bitmap(parede);
+    al_destroy_bitmap(vazio);
     printf("Paredes destruidas!\n");
 }
 

@@ -3,8 +3,8 @@
 
 #include "Biblioteca.h"
 
-const int TELA_H = 1280;
-const int TELA_V = 720;
+const int TELA_H = 616;
+const int TELA_V = 704;
 
 class Display{
 private:

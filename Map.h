@@ -4,17 +4,33 @@
 #include "Biblioteca.h"
 #include "Moeda.cpp"
 #include "Parede.cpp"
+#include "PacMan.cpp"
 
-const int TAM_MAPA_L = 653;
-const int TAM_MAPA_A = 720;
+//Definição dos tamanhos do mapa
+const int TAM_MAPA_PIXEL_L = 616;
+const int TAM_MAPA_PIXEL_A = 704;
+const int TAM_MAPA_L = 32;
+const int TAM_MAPA_A = 28;
 
-class Map : Moeda, Parede{
+//Objetos do mapa
+const int PAREDE = 1;
+const int PONTO = 2;
+const int VAZIO = 3;
+const int PACMAN = 4;
+
+class Map : public Moeda, public Parede, public PacMan{
     private:
-  
+        int mapa[32][28];
     public:
         Map();
+        Map(int[32][28]);
         ~Map();
-        void montarMapa();
+        int getValorMapa(int, int);
+        void setValorMapa(int, int, int);
+        void montarMapa(Map&);
+        void atualizaMapa(PacMan&,Map&);
+        void movimentaPacman(PacMan&,Map&, int);
+        bool movimentoValido(PacMan&, Map&);
 };
 
 #endif

@@ -5,12 +5,18 @@ using namespace std;
 
 int main(){
 
-    if(!al_init()) {
-        printf("Erro ao iniciar o Allegro!\n");
+    try{
+        if( !al_init() ||
+            !al_init_image_addon()||
+            !al_install_keyboard()||
+            !al_init_font_addon()||
+            !al_init_ttf_addon())
+            throw NULL;
     }
-    al_init_image_addon();
-    al_install_keyboard();
-
+    catch(const std::invalid_argument& e){
+        std::cerr << "Erro ao iniciar Allegro " << e.what() << '\n';
+    }
+    
     PacMan personagem;
     Display d;
     d.iniciaDisplay();
@@ -39,7 +45,7 @@ int main(){
                         {1,2,2,2,2,2,2,2,2,2,2,2,2,1,1,2,2,2,2,2,2,2,2,2,2,2,2,1},//
                         {1,2,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2,1,1,1,1,2,1},//
                         {1,2,1,1,1,1,2,1,1,1,1,1,2,1,1,2,1,1,1,1,1,2,1,1,1,1,2,1},//
-                        {1,2,2,2,1,1,2,2,2,2,2,2,2,3,4,2,2,2,2,2,2,2,1,1,2,2,2,1},//
+                        {1,2,2,2,1,1,2,2,2,2,2,2,2,3,3,2,2,2,2,2,2,2,1,1,2,2,2,1},//
                         {1,1,1,2,1,1,2,1,1,2,1,1,1,1,1,1,1,1,2,1,1,2,1,1,2,1,1,1},//
                         {1,1,1,2,1,1,2,1,1,2,1,1,1,1,1,1,1,1,2,1,1,2,1,1,2,1,1,1},//
                         {1,2,2,2,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2,1,1,2,2,2,2,2,2,1},//
@@ -86,8 +92,11 @@ int main(){
                 mapa.montarMapa(mapa);
                 al_draw_bitmap_region(personagem.getPacmanSprite(), personagem.getDirecaoPacman()*sprite, personagem.getDirecaoPacman(), personagem.getPacmanBordaX(), personagem.getPacmanBordaY(),
                     personagem.getPosicaoPacmanX(), personagem.getPosicaoPacmanY(),0);
+                string str = "Pontuacao: " + std::to_string(personagem.getPontuacaoPacman());
+                const char *pontuacaoStr = str.c_str();
+                al_draw_text(mapa.getPontuacaoTexto(), al_map_rgb(255,0,0), 1, 1, ALLEGRO_ALIGN_LEFT, pontuacaoStr);
                 al_flip_display();
-                //mapa.movimentaPacman(personagem,mapa,personagem.getDirecaoPacman());
+                mapa.movimentaPacman(personagem,mapa);
             } 
         }else{
             if (ev.type == ALLEGRO_EVENT_DISPLAY_CLOSE){
@@ -99,22 +108,22 @@ int main(){
                 }
                 if (ev.keyboard.keycode == ALLEGRO_KEY_RIGHT){
                     personagem.setDirecaoPacman(DIR);
-                    mapa.movimentaPacman(personagem,mapa, DIR);
+                    mapa.movimentaPacman(personagem,mapa);
                     
                 }
                 if (ev.keyboard.keycode == ALLEGRO_KEY_LEFT){
                     personagem.setDirecaoPacman(ESQ);
-                    mapa.movimentaPacman(personagem,mapa, ESQ);
+                    mapa.movimentaPacman(personagem,mapa);
                     
                 }
                 if (ev.keyboard.keycode == ALLEGRO_KEY_UP){
                     personagem.setDirecaoPacman(CIM);
-                    mapa.movimentaPacman(personagem,mapa, CIM);
+                    mapa.movimentaPacman(personagem,mapa);
                     
                 }
                 if (ev.keyboard.keycode == ALLEGRO_KEY_DOWN){
                     personagem.setDirecaoPacman(BAI);
-                    mapa.movimentaPacman(personagem,mapa, BAI);
+                    mapa.movimentaPacman(personagem,mapa);
                     
                 }
                 

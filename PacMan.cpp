@@ -10,6 +10,7 @@ PacMan::PacMan(){
     posicao_pacman_x = POSICAO_INICIO_PACMAN_X;
     posicao_pacman_y = POSICAO_INICIO_PACMAN_Y;
     direcao = DIR;
+    pontuacao = 0;
 }
 
 PacMan::~PacMan(){
@@ -22,7 +23,7 @@ int PacMan::getPacmanBordaX(){
 }
 
 void PacMan::setPacmanBordaX(int borda){
-    borda_pacman_x = borda;
+    this->borda_pacman_x = borda;
 }
 
 int PacMan::getPacmanBordaY(){
@@ -30,7 +31,7 @@ int PacMan::getPacmanBordaY(){
 }
 
 void PacMan::setPacmanBordaY(int borda){
-    borda_pacman_y = borda;
+    this->borda_pacman_y = borda;
 }
 
 int PacMan::getDirecaoPacman(){
@@ -88,7 +89,7 @@ ALLEGRO_BITMAP* PacMan::getPacmanSprite(){
 }
 
 void PacMan::setPosicaoXMapaPacman(int posicao){
-     posicao_mapa_pacman_x = posicao;
+    this->posicao_mapa_pacman_x = posicao;
 }
 
 int PacMan::getPosicaoXMapaPacman(){
@@ -96,7 +97,7 @@ int PacMan::getPosicaoXMapaPacman(){
 }
 
 void PacMan::setPosicaoYMapaPacman(int posicao){
-     posicao_mapa_pacman_y = posicao;
+    this->posicao_mapa_pacman_y = posicao;
 }
 
 int PacMan::getPosicaoYMapaPacman(){

@@ -14,13 +14,14 @@ const int TAM_MAPA_A = 28;
 
 //Objetos do mapa
 const int PAREDE = 1;
-const int PONTO = 2;
+const int MOEDA = 2;
 const int VAZIO = 3;
 const int PACMAN = 4;
 
 class Map : public Moeda, public Parede, public PacMan{
     private:
         int mapa[32][28];
+        ALLEGRO_FONT *pontuacaoTexto;
     public:
         Map();
         Map(int[32][28]);
@@ -29,8 +30,9 @@ class Map : public Moeda, public Parede, public PacMan{
         void setValorMapa(int, int, int);
         void montarMapa(Map&);
         void atualizaMapa(PacMan&,Map&);
-        void movimentaPacman(PacMan&,Map&, int);
+        void movimentaPacman(PacMan&,Map&);
         bool movimentoValido(PacMan&, Map&);
+        ALLEGRO_FONT* getPontuacaoTexto();
 };
 
 #endif

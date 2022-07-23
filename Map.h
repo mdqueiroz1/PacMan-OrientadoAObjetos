@@ -31,7 +31,7 @@ class Map : public Moeda, public Parede, public PacMan{
         void montarMapa(Map&);
         void atualizaMapa(PacMan&,Map&);
         void movimentaPacman(PacMan&,Map&);
-        bool movimentoValido(PacMan&, Map&);
+        bool movimentoValido(PacMan&, Map&,int);
         ALLEGRO_FONT* getPontuacaoTexto();
 };
 

@@ -111,3 +111,11 @@ int PacMan::getPontuacaoPacman(){
 void PacMan::setPontuacaoPacman(int pontuacao){
     this->pontuacao = pontuacao;
 }
+
+int PacMan::getBufferPacman(){
+    return bufferMovimento;
+}
+
+void PacMan::setBufferPacman(int buffer){
+    this->bufferMovimento = buffer;
+}

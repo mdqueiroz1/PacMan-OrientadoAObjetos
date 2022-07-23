@@ -62,86 +62,88 @@ void Map::montarMapa(Map& mapaObj){
 
 void Map::movimentaPacman(PacMan& personagem, Map& mapa){
 
+    if (personagem.getBufferPacman() != personagem.getDirecaoPacman()){
+        if (movimentoValido(personagem, mapa, personagem.getBufferPacman())){
+            switch (personagem.getBufferPacman()){
+                case DIR:
+                    personagem.setDirecaoPacman(DIR);
+                    break;
+                case ESQ:
+                    personagem.setDirecaoPacman(ESQ);
+                    break;
+                case CIM:
+                    personagem.setDirecaoPacman(CIM);
+                    break;
+                case BAI:
+                    personagem.setDirecaoPacman(BAI);
+                    break;
+           }
+        }
+        
+    }
+    
+    bool ehMovimentoValido = movimentoValido(personagem, mapa, personagem.getDirecaoPacman());
+
     switch (personagem.getDirecaoPacman()){
         case DIR:{
             if (personagem.getPosicaoPacmanX()+22 <= TAM_MAPA_PIXEL_L 
-                && movimentoValido(personagem, mapa)){
+                && ehMovimentoValido){
                 personagem.setPosicaoPacmanX(personagem.getPosicaoPacmanX()+2);
                 atualizaMapa(personagem,mapa);
-                printf("Direita\n");
             }
             break;
         }
         
         case ESQ:{
             if(personagem.getPosicaoPacmanX() >= 0 
-                && movimentoValido(personagem, mapa)){
+                && ehMovimentoValido){
                 personagem.setPosicaoPacmanX(personagem.getPosicaoPacmanX()-2);
                 atualizaMapa(personagem,mapa);
-                printf("Esquerda\n");
             }
             break;
         }
         
         case CIM:{
             if(personagem.getPosicaoPacmanY() >= 0 
-                && movimentoValido(personagem, mapa)){
+                && ehMovimentoValido){
                 personagem.setPosicaoPacmanY(personagem.getPosicaoPacmanY()-2);
                 atualizaMapa(personagem,mapa);
-                printf("Cima\n");
             }
             break;
         }
             
         case BAI:{
             if(personagem.getPosicaoPacmanY()+22 < TAM_MAPA_PIXEL_A 
-                && movimentoValido(personagem, mapa)){
+                && ehMovimentoValido){
                 personagem.setPosicaoPacmanY(personagem.getPosicaoPacmanY()+2);
                 atualizaMapa(personagem,mapa);
-                printf("Baixo\n");
             }
             break;                    
         }
-            
-        default:{
-            printf("Direcao invalida\n");
-            break;
-        }
     }
-
-    printf("Mapa: X:%d Y:%d Imagem:X:%d Y:%d ", personagem.getPosicaoXMapaPacman(), personagem.getPosicaoYMapaPacman(), personagem.getPosicaoPacmanX(),personagem.getPosicaoPacmanY());
-    printf("Item: %d\n",mapa.getValorMapa(personagem.getPosicaoXMapaPacman(),personagem.getPosicaoYMapaPacman()));
 }
 
-bool Map::movimentoValido(PacMan& personagem, Map& map){
+bool Map::movimentoValido(PacMan& personagem, Map& map, int movimento){
 
     bool valido = false;
 
-    switch (personagem.getDirecaoPacman()){
+    switch (movimento){
         case BAI:
-            printf("X%d Y%d:",personagem.getPosicaoXMapaPacman(),personagem.getPosicaoYMapaPacman()+1);
-            printf("%d\n",getValorMapa(personagem.getPosicaoXMapaPacman(),personagem.getPosicaoYMapaPacman()+1));
             if(map.getValorMapa(personagem.getPosicaoXMapaPacman(),personagem.getPosicaoYMapaPacman()+1) != PAREDE){
                 valido = true;
             }
             break;
         case ESQ:
-            printf("X%d Y%d:",personagem.getPosicaoXMapaPacman()-1,personagem.getPosicaoYMapaPacman());
-            printf("%d\n",getValorMapa(personagem.getPosicaoXMapaPacman()-1,personagem.getPosicaoYMapaPacman()));
             if(map.getValorMapa(personagem.getPosicaoXMapaPacman()-1,personagem.getPosicaoYMapaPacman()) != PAREDE){
                 valido = true;
             }
             break;
         case CIM:
-            printf("X%d Y%d:",personagem.getPosicaoXMapaPacman(),personagem.getPosicaoYMapaPacman()-1);
-            printf("%d\n",getValorMapa(personagem.getPosicaoXMapaPacman(),personagem.getPosicaoYMapaPacman()-1));
             if(map.getValorMapa(personagem.getPosicaoXMapaPacman(),personagem.getPosicaoYMapaPacman()-1) != PAREDE){
                 valido = true;         
             }
             break;
         case DIR:
-            printf("X%d Y%d:",personagem.getPosicaoXMapaPacman()+1,personagem.getPosicaoYMapaPacman());
-            printf("%d\n",getValorMapa(personagem.getPosicaoXMapaPacman()+1,personagem.getPosicaoYMapaPacman()));
             if(map.getValorMapa(personagem.getPosicaoXMapaPacman()+1,personagem.getPosicaoYMapaPacman()) != PAREDE){
                 valido = true;           
             }
@@ -171,13 +173,6 @@ void Map::atualizaMapa(PacMan& personagem,Map& mapaObj){
         personagem.setPosicaoXMapaPacman(localX);
         personagem.setPosicaoYMapaPacman(localY);
         mapaObj.setValorMapa(personagem.getPosicaoXMapaPacman(),personagem.getPosicaoYMapaPacman(),VAZIO);     
-
-        for (int i = 0; i < 28; i++){
-            for (int j = 0; j < 32; j++){
-                printf("%d,",mapaObj.getValorMapa(i,j));
-            }
-            printf("\n");
-        }
 
     }
 

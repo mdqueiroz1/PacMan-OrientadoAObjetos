@@ -25,7 +25,8 @@ class PacMan{
             borda_pacman_x, 
             borda_pacman_y,
             direcao,
-            pontuacao;
+            pontuacao,
+            bufferMovimento;
 
     protected:
         ALLEGRO_BITMAP *pacmanSprite;
@@ -49,6 +50,8 @@ class PacMan{
         ALLEGRO_BITMAP* getPacmanSprite();
         int getPontuacaoPacman();
         void setPontuacaoPacman(int);
+        int getBufferPacman();
+        void setBufferPacman(int);
 };
 
 #endif
